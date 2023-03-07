@@ -6,7 +6,7 @@ public class Main {
 	public static void main(String[] args) {
 		Connection connection = null;
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/forum", "root", "c620918fazuKl420");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/forum", "root", "524013659?Ln");
 			System.out.println(connection != null);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -25,8 +25,11 @@ public class Main {
 		}
 		try {
 			while(resultSet.next()){
-				System.out.println(resultSet.getInt(1));
-				System.out.println(resultSet.getString(2));
+				int id = resultSet.getInt(1);
+				String name = resultSet.getString(2);
+				String surName = resultSet.getString(3);
+				User user = new User(id,name,surName);
+				System.out.println(user);
 			}
 		}   catch (SQLException e){
 			throw new RuntimeException(e);
