@@ -8,7 +8,7 @@ public class Main {
 		Connection connection = null;
 		ArrayList<User> usersList = new ArrayList<>();
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/forum", "root", "root");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/forum", "root", "Mysqlpass123");
 			System.out.println(connection != null);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -19,7 +19,7 @@ public class Main {
 
 		try {
 			statement = connection.createStatement();
-			resultSet = statement.executeQuery("SELECT * FROM forum.users WHERE name= 'federico'");
+			resultSet = statement.executeQuery("SELECT * FROM forum.users WHERE name= 'federica' AND surname = 'rossi'");
 		} catch (SQLException e) {
 			System.out.println("SQLException: " + e.getMessage());
 			System.out.println("SQLState: " + e.getSQLState());
