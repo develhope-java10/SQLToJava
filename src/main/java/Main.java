@@ -1,12 +1,14 @@
 import com.mysql.cj.jdbc.exceptions.ConnectionFeatureNotAvailableException;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Main {
 	public static void main(String[] args) {
 		Connection connection = null;
+		ArrayList<User> usersList = new ArrayList<>();
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/forum", "root", "524013659?Ln");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/forum", "root", "root");
 			System.out.println(connection != null);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -17,7 +19,7 @@ public class Main {
 
 		try {
 			statement = connection.createStatement();
-			resultSet = statement.executeQuery("SELECT * FROM forum.users");
+			resultSet = statement.executeQuery("SELECT * FROM forum.users WHERE name= 'federico'");
 		} catch (SQLException e) {
 			System.out.println("SQLException: " + e.getMessage());
 			System.out.println("SQLState: " + e.getSQLState());
@@ -29,11 +31,13 @@ public class Main {
 				String name = resultSet.getString(2);
 				String surName = resultSet.getString(3);
 				User user = new User(id,name,surName);
-				System.out.println(user);
+				usersList.add(user);
+
 			}
 		}   catch (SQLException e){
 			throw new RuntimeException(e);
 		}
+		System.out.println(usersList);
 
 
 
