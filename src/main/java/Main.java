@@ -18,7 +18,7 @@ public class Main {
 
 			List<Student> students = new ArrayList<>();
 
-			while(resultSet.next()) {
+			while (resultSet.next()) {
 				int id = resultSet.getInt("id");
 				String firstName = resultSet.getString("first_name");
 				String lastName = resultSet.getString("last_name");
@@ -28,6 +28,23 @@ public class Main {
 			}
 
 			System.out.println(students);
+		} catch (SQLException e) {
+			System.out.println("SQLException: " + e.getMessage());
+			System.out.println("SQLState: " + e.getSQLState());
+			System.out.println("VendorError: " + e.getErrorCode());
+		}
+
+		try {
+			Student student = new Student(-1, "Paolo", "Novellini");
+
+			PreparedStatement statement = connection.prepareStatement(
+					"INSERT INTO Students(first_name, last_name) VALUES (?, ?)"
+			);
+
+			statement.setString(1, student.getFirstName());
+			statement.setString(2, student.getLastName());
+
+			statement.execute();
 		} catch (SQLException e) {
 			System.out.println("SQLException: " + e.getMessage());
 			System.out.println("SQLState: " + e.getSQLState());
